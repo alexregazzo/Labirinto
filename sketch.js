@@ -32,9 +32,6 @@ function setup() {
 	grid[7][9] = true;
 	grid[8][9] = true;
 	
-
-	
-
 }
 
 function draw() {
@@ -61,18 +58,23 @@ function draw() {
 		text("Clique no vermelho para começar", width / 2, height / 2);
 	} else {
 		let pos = getSquare();
-		if (!((pos[0] === 0 && pos[1] === 0) || (pos[0] === sy - 1 && pos[1] === sx - 1))) {
+		if (pos[0] === 0 && pos[1] === 0){
+			lose();
+		} else if (!(pos[0] === sy - 1 && pos[1] === sx - 1)) {
 			if (grid[pos[0]][pos[1]] === false) {
-				noLoop();
-				noStroke();
-				fill(255, 0, 0);
-				ellipse(width / 2, height / 2, 20, 20);
-				image(img, 0, 0 ,width, height);
-				snd.play();
+				lose();
 			}
 		}
 	}
-	
+}
+
+function lose(){
+	noLoop();
+	noStroke();
+	fill(255, 0, 0);
+	ellipse(width / 2, height / 2, 20, 20);
+	image(img, 0, 0 ,width, height);
+	snd.play();
 }
 
 function getSquare() {
